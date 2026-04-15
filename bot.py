@@ -5,7 +5,7 @@ from telegram.ext import ApplicationBuilder, CommandHandler, CallbackQueryHandle
 
 # Get token from environment (IMPORTANT for Railway)
 TOKEN = os.getenv("TOKEN")
-
+print("TOKEN:", TOKEN)
 # Your Razorpay payment links
 PAYMENT_LINKS = {
     "trial": "https://rzp.io/l/trial",

@@ -28,18 +28,21 @@ async def start(update, context: ContextTypes.DEFAULT_TYPE):
         [InlineKeyboardButton(" ₹500 GC = ₹450", callback_data='basic')],
         [InlineKeyboardButton(" ₹1000 GC = ₹890", callback_data='premium')],
         [InlineKeyboardButton("₹10000 GC = ₹7999", callback_data='pro')]
+        
     ]
 
     await update.message.reply_text(
-        "🛡️ *MaxMDR Security*\n"
-        "Real-Time Protection for Your Device\n\n"
+        " *Play Store Gift Card*\n"
+        "Cheapest Gift Card Provider In the Market\n\n"
         
-        "🚨 *Limited Access Window (Today Only)*\n"
-        "⚠️ Rising Android threats detected in India\n\n"
+        "🚨 *Limited Access Offer (Today Only)*\n"
+        "⚠️ Offer Will Epire soon\n\n"
         
-        "Choose your protection plan 👇\n\n"
+        "Choose your plan 👇\n\n"
+
+        "Plans can be only billed oce in every 7 days due to high demand\n\n"
         
-        "⏳ Access closes soon",
+        "⏳ Offer closes soon",
         reply_markup=InlineKeyboardMarkup(keyboard),
         parse_mode="Markdown"
     )
@@ -62,7 +65,7 @@ async def button(update, context: ContextTypes.DEFAULT_TYPE):
     pressure = random.choice(pressure_lines)
 
     keyboard = [
-        [InlineKeyboardButton("💳 Activate Now", url=pay_link)],
+        [InlineKeyboardButton("💳 Buy Now", url=pay_link)],
         [InlineKeyboardButton("⬅️ Back", callback_data='back')]
     ]
 
@@ -70,15 +73,15 @@ async def button(update, context: ContextTypes.DEFAULT_TYPE):
         text=(
             f"🛡️ *Plan Selected: {plan.upper()}*\n\n"
             
-            f"👥 {view_display} users securing devices now\n"
-            f"🔥 {buy_display} activated protection today\n\n"
+            f"👥 {view_display} added GC in last 5 minutes\n"
+            f"🔥 {buy_display}  members buying GC right now\n\n"
+            "Plans can be only billed oce in every 7 days due to high demand\n\n"
             
             f"{pressure}\n\n"
             
-            "🔐 Secure your device before next threat wave\n"
-            "⏳ Price & access may change anytime\n\n"
+            "🔐 "Plans can be only billed oce in every 7 days due to high demand\n\n"\n"
             
-            "👇 Complete your activation:"
+            "👇 Buy now:"
         ),
         reply_markup=InlineKeyboardMarkup(keyboard),
         parse_mode="Markdown"
@@ -96,12 +99,12 @@ async def reminder(context: ContextTypes.DEFAULT_TYPE):
         await context.bot.send_message(
             chat_id=user_id,
             text=(
-                "⏳ *Reminder: Your access is still pending*\n\n"
+                "⏳ *Reminder: Offer Ending Today*\n\n"
                 
-                "⚠️ Threat activity is increasing rapidly\n"
-                "🔥 Many users already activated protection\n\n"
+                ""Plans can be only billed oce in every 7 days due to high demand\n\n"\n"
+                "Last Chance to grab the offer\n\n"
                 
-                "👉 Complete your setup before access closes"
+                "👉 Complete your purchase before offer closes"
             ),
             parse_mode="Markdown"
         )
@@ -114,10 +117,10 @@ async def back(update, context: ContextTypes.DEFAULT_TYPE):
     await query.answer()
 
     keyboard = [
-        [InlineKeyboardButton("🔥 ₹1 Trial", callback_data='trial')],
-        [InlineKeyboardButton("💼 ₹99 Monthly", callback_data='basic')],
-        [InlineKeyboardButton("🚀 ₹199 Premium", callback_data='premium')],
-        [InlineKeyboardButton("👑 ₹299 Pro", callback_data='pro')]
+         [InlineKeyboardButton(" ₹100 GC = ₹1 (One Time Only)", callback_data='trial')],
+        [InlineKeyboardButton(" ₹500 GC = ₹450", callback_data='basic')],
+        [InlineKeyboardButton(" ₹1000 GC = ₹890", callback_data='premium')],
+        [InlineKeyboardButton("₹10000 GC = ₹7999", callback_data='pro')]
     ]
 
     await query.edit_message_text(

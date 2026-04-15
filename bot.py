@@ -1,12 +1,11 @@
 import os
 import random
+import asyncio
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup
-from telegram.ext import ApplicationBuilder, CommandHandler, CallbackQueryHandler
+from telegram.ext import ApplicationBuilder, CommandHandler, CallbackQueryHandler, ContextTypes
 
-# Get token from environment (IMPORTANT for Railway)
 TOKEN = os.getenv("TOKEN")
-print("TOKEN:", TOKEN)
-# Your Razorpay payment links
+
 PAYMENT_LINKS = {
     "trial": "https://rzp.io/l/trial",
     "basic": "https://rzp.io/l/99",
@@ -14,81 +13,120 @@ PAYMENT_LINKS = {
     "pro": "https://rzp.io/l/299"
 }
 
-# Urgency / pressure lines
 pressure_lines = [
-    "⏳ Only few spots left",
-    "🔥 High demand right now",
-    "⚠️ Offer ending in few hours",
-    "👥 Many users are viewing this plan",
-    "🚀 Selling fast today",
-    "⚡ Price may increase anytime"
+    "🚨 Threat alerts increasing rapidly",
+    "⚠️ High risk devices detected today",
+    "🔥 Unusual signup activity right now",
+    "⏳ Access window closing soon",
+    "⚡ Demand spike detected"
 ]
 
-# Start command
-async def start(update, context):
+# ================= START =================
+async def start(update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = [
         [InlineKeyboardButton("🔥 ₹1 Trial", callback_data='trial')],
-        [InlineKeyboardButton("💰 ₹99 Monthly", callback_data='basic')],
+        [InlineKeyboardButton("💼 ₹99 Monthly", callback_data='basic')],
         [InlineKeyboardButton("🚀 ₹199 Premium", callback_data='premium')],
         [InlineKeyboardButton("👑 ₹299 Pro", callback_data='pro')]
     ]
 
     await update.message.reply_text(
-        "🚨 LIMITED TIME OFFER (Today Only)\n\n"
-        "Protect your phone from hackers & scams ⚠️\n\n"
-        "Choose your plan 👇\n\n"
-        "🔥 ₹1 Trial (First 100 users)\n"
-        "💰 ₹99 Monthly (Most Popular)\n"
-        "🚀 ₹199 Premium (Extra Protection)\n"
-        "👑 ₹299 Pro (Full Security)\n\n"
-        "⏳ Offer expires soon!",
-        reply_markup=InlineKeyboardMarkup(keyboard)
+        "🛡️ *MaxMDR Security*\n"
+        "Real-Time Protection for Your Device\n\n"
+        
+        "🚨 *Limited Access Window (Today Only)*\n"
+        "⚠️ Rising Android threats detected in India\n\n"
+        
+        "Choose your protection plan 👇\n\n"
+        
+        "⏳ Access closes soon",
+        reply_markup=InlineKeyboardMarkup(keyboard),
+        parse_mode="Markdown"
     )
 
-# Button click handler
-async def button(update, context):
+# ================= BUTTON =================
+async def button(update, context: ContextTypes.DEFAULT_TYPE):
     query = update.callback_query
     await query.answer()
 
     plan = query.data
     pay_link = PAYMENT_LINKS[plan]
 
+    # dynamic numbers
+    view_count = random.randint(1800, 6200)
+    buy_count = random.randint(400, 3200)
+
+    view_display = f"{view_count/1000:.1f}K"
+    buy_display = f"{buy_count/1000:.1f}K"
+
     pressure = random.choice(pressure_lines)
-    view_count = random.randint(15, 60)
-    buy_count = random.randint(5, 30)
 
     keyboard = [
-        [InlineKeyboardButton("💳 Pay Now", url=pay_link)],
+        [InlineKeyboardButton("💳 Activate Now", url=pay_link)],
         [InlineKeyboardButton("⬅️ Back", callback_data='back')]
     ]
 
     await query.edit_message_text(
-        text=f"⚡ You selected: {plan.upper()}\n\n"
-             f"👥 {view_count} users viewing this\n"
-             f"🔥 {buy_count} bought today\n"
-             f"{pressure}\n\n"
-             "⏳ Complete payment now 👇",
-        reply_markup=InlineKeyboardMarkup(keyboard)
+        text=(
+            f"🛡️ *Plan Selected: {plan.upper()}*\n\n"
+            
+            f"👥 {view_display} users securing devices now\n"
+            f"🔥 {buy_display} activated protection today\n\n"
+            
+            f"{pressure}\n\n"
+            
+            "🔐 Secure your device before next threat wave\n"
+            "⏳ Price & access may change anytime\n\n"
+            
+            "👇 Complete your activation:"
+        ),
+        reply_markup=InlineKeyboardMarkup(keyboard),
+        parse_mode="Markdown"
     )
 
-# Back button
-async def back(update, context):
+    # ⏳ start follow-up reminder
+    user_id = query.from_user.id
+    context.job_queue.run_once(reminder, 120, data=user_id)
+
+# ================= REMINDER =================
+async def reminder(context: ContextTypes.DEFAULT_TYPE):
+    user_id = context.job.data
+
+    try:
+        await context.bot.send_message(
+            chat_id=user_id,
+            text=(
+                "⏳ *Reminder: Your access is still pending*\n\n"
+                
+                "⚠️ Threat activity is increasing rapidly\n"
+                "🔥 Many users already activated protection\n\n"
+                
+                "👉 Complete your setup before access closes"
+            ),
+            parse_mode="Markdown"
+        )
+    except:
+        pass
+
+# ================= BACK =================
+async def back(update, context: ContextTypes.DEFAULT_TYPE):
     query = update.callback_query
     await query.answer()
 
     keyboard = [
         [InlineKeyboardButton("🔥 ₹1 Trial", callback_data='trial')],
-        [InlineKeyboardButton("💰 ₹99 Monthly", callback_data='basic')],
+        [InlineKeyboardButton("💼 ₹99 Monthly", callback_data='basic')],
         [InlineKeyboardButton("🚀 ₹199 Premium", callback_data='premium')],
         [InlineKeyboardButton("👑 ₹299 Pro", callback_data='pro')]
     ]
 
     await query.edit_message_text(
-        text="🚨 LIMITED TIME OFFER (Today Only)\n\nChoose your plan 👇",
-        reply_markup=InlineKeyboardMarkup(keyboard)
+        text="🛡️ *Choose your protection plan 👇*",
+        reply_markup=InlineKeyboardMarkup(keyboard),
+        parse_mode="Markdown"
     )
 
-# Run bot
+# ================= MAIN =================
 app = ApplicationBuilder().token(TOKEN).build()
 
 app.add_handler(CommandHandler("start", start))

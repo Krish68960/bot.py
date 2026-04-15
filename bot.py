@@ -40,7 +40,7 @@ async def start(update, context: ContextTypes.DEFAULT_TYPE):
         
         "Choose your plan 👇\n\n"
 
-        "Plans can be only billed oce in every 7 days due to high demand\n\n"
+        "Plans can be only billed once in every 7 days due to high demand\n\n"
         
         "⏳ Offer closes soon",
         reply_markup=InlineKeyboardMarkup(keyboard),
@@ -75,11 +75,11 @@ async def button(update, context: ContextTypes.DEFAULT_TYPE):
             
             f"👥 {view_display} added GC in last 5 minutes\n"
             f"🔥 {buy_display}  members buying GC right now\n\n"
-            "Plans can be only billed oce in every 7 days due to high demand\n\n"
-            
+            f"🔥  "Plans can be only billed once in every 7 days due to high demand\n\n"
+           
             f"{pressure}\n\n"
             
-            "🔐 "Plans can be only billed oce in every 7 days due to high demand\n\n"\n"
+            "🔐 "Plans can be only billed once in every 7 days due to high demand\n\n"\n"
             
             "👇 Buy now:"
         ),
@@ -101,7 +101,7 @@ async def reminder(context: ContextTypes.DEFAULT_TYPE):
             text=(
                 "⏳ *Reminder: Offer Ending Today*\n\n"
                 
-                ""Plans can be only billed oce in every 7 days due to high demand\n\n"\n"
+                ""Plans can be only billed once in every 7 days due to high demand\n\n"\n"
                 "Last Chance to grab the offer\n\n"
                 
                 "👉 Complete your purchase before offer closes"

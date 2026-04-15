@@ -78,10 +78,10 @@ async def button(update, context: ContextTypes.DEFAULT_TYPE):
            
             f"{pressure}\n\n"
             
-            "🔐 "Plans can be only billed once in every 7 days due to high demand\n\n"\n"
+            "🔐 "Plans can be only billed once in every 7 days due to high demand\n\n"
             
             "👇 Buy now:"
-        )),
+        ),
         reply_markup=InlineKeyboardMarkup(keyboard),
         parse_mode="Markdown"
     )

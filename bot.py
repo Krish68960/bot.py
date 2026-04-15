@@ -24,10 +24,10 @@ pressure_lines = [
 # ================= START =================
 async def start(update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = [
-        [InlineKeyboardButton("🔥 ₹1 Trial", callback_data='trial')],
-        [InlineKeyboardButton("💼 ₹99 Monthly", callback_data='basic')],
-        [InlineKeyboardButton("🚀 ₹199 Premium", callback_data='premium')],
-        [InlineKeyboardButton("👑 ₹299 Pro", callback_data='pro')]
+        [InlineKeyboardButton(" ₹100 GC = ₹1 (One Time Only)", callback_data='trial')],
+        [InlineKeyboardButton(" ₹500 GC = ₹450", callback_data='basic')],
+        [InlineKeyboardButton(" ₹1000 GC = ₹890", callback_data='premium')],
+        [InlineKeyboardButton("₹10000 GC = ₹7999", callback_data='pro')]
     ]
 
     await update.message.reply_text(

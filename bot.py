@@ -124,7 +124,7 @@ async def back(update, context: ContextTypes.DEFAULT_TYPE):
     ]
 
     await query.edit_message_text(
-        text="🛡️ *Choose your protection plan 👇*",
+        text="🛡️ *Choose your plan 👇*",
         reply_markup=InlineKeyboardMarkup(keyboard),
         parse_mode="Markdown"
     )

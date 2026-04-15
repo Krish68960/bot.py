@@ -75,7 +75,6 @@ async def button(update, context: ContextTypes.DEFAULT_TYPE):
             
             f"👥 {view_display} added GC in last 5 minutes\n"
             f"🔥 {buy_display}  members buying GC right now\n\n"
-            f"🔥  "Plans can be only billed once in every 7 days due to high demand\n\n"
            
             f"{pressure}\n\n"
             

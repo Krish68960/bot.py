@@ -1,6 +1,5 @@
 import os
 import random
-import asyncio
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import ApplicationBuilder, CommandHandler, CallbackQueryHandler, ContextTypes
 
@@ -14,35 +13,34 @@ PAYMENT_LINKS = {
 }
 
 pressure_lines = [
-    "🚨 Threat alerts increasing rapidly",
-    "⚠️ High risk devices detected today",
-    "🔥 Unusual signup activity right now",
-    "⏳ Access window closing soon",
-    "⚡ Demand spike detected"
+    "🚨 High demand right now",
+    "⚠️ Offer ending soon",
+    "🔥 Selling fast today",
+    "⏳ Limited access window",
+    "⚡ Price may increase anytime"
 ]
 
 # ================= START =================
 async def start(update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = [
-        [InlineKeyboardButton(" ₹100 GC = ₹1 (One Time Only)", callback_data='trial')],
-        [InlineKeyboardButton(" ₹500 GC = ₹450", callback_data='basic')],
-        [InlineKeyboardButton(" ₹1000 GC = ₹890", callback_data='premium')],
+        [InlineKeyboardButton("₹100 GC = ₹1 (One Time)", callback_data='trial')],
+        [InlineKeyboardButton("₹500 GC = ₹450", callback_data='basic')],
+        [InlineKeyboardButton("₹1000 GC = ₹890", callback_data='premium')],
         [InlineKeyboardButton("₹10000 GC = ₹7999", callback_data='pro')]
-        
     ]
 
     await update.message.reply_text(
-        " *Play Store Gift Card*\n"
-        "Cheapest Gift Card Provider In the Market\n\n"
+        "🎁 *Play Store Gift Card*\n"
+        "Cheapest Gift Card Provider\n\n"
         
-        "🚨 *Limited Access Offer (Today Only)*\n"
-        "⚠️ Offer Will Epire soon\n\n"
+        "🚨 *Limited Offer (Today Only)*\n"
+        "⚠️ Offer will expire soon\n\n"
         
         "Choose your plan 👇\n\n"
-
-        "Plans can be only billed once in every 7 days due to high demand\n\n"
         
-        "⏳ Offer closes soon",
+        "🔐 Plans can be billed once every 7 days\n\n"
+        
+        "⏳ Offer closing soon",
         reply_markup=InlineKeyboardMarkup(keyboard),
         parse_mode="Markdown"
     )
@@ -55,7 +53,6 @@ async def button(update, context: ContextTypes.DEFAULT_TYPE):
     plan = query.data
     pay_link = PAYMENT_LINKS[plan]
 
-    # dynamic numbers
     view_count = random.randint(1800, 6200)
     buy_count = random.randint(400, 3200)
 
@@ -71,24 +68,19 @@ async def button(update, context: ContextTypes.DEFAULT_TYPE):
 
     await query.edit_message_text(
         text=(
-            f"🛡️ *Plan Selected: {plan.upper()}*\n\n"
-            
-            f"👥 {view_display} added GC in last 5 minutes\n"
-            f"🔥 {buy_display}  members buying GC right now\n\n"
-           
+            f"🎯 *Selected Plan: {plan.upper()}*\n\n"
+            f"👥 {view_display} users viewing now\n"
+            f"🔥 {buy_display} bought today\n\n"
             f"{pressure}\n\n"
-            
-            "🔐 "Plans can be only billed once in every 7 days due to high demand\n\n"
-            
-            "👇 Buy now:"
+            "🔐 Plans can be billed once every 7 days\n\n"
+            "👇 Complete your purchase:"
         ),
         reply_markup=InlineKeyboardMarkup(keyboard),
         parse_mode="Markdown"
     )
 
-    # ⏳ start follow-up reminder
-    user_id = query.from_user.id
-    context.job_queue.run_once(reminder, 120, data=user_id)
+    # Reminder after 2 min
+    context.job_queue.run_once(reminder, 120, data=query.from_user.id)
 
 # ================= REMINDER =================
 async def reminder(context: ContextTypes.DEFAULT_TYPE):
@@ -98,12 +90,10 @@ async def reminder(context: ContextTypes.DEFAULT_TYPE):
         await context.bot.send_message(
             chat_id=user_id,
             text=(
-                "⏳ *Reminder: Offer Ending Today*\n\n"
-                
-                ""Plans can be only billed once in every 7 days due to high demand\n\n"\n"
-                "Last Chance to grab the offer\n\n"
-                
-                "👉 Complete your purchase before offer closes"
+                "⏳ *Reminder: Offer Ending Soon*\n\n"
+                "🔐 Limited purchase window active\n\n"
+                "🔥 High demand right now\n\n"
+                "👉 Complete your purchase before it closes"
             ),
             parse_mode="Markdown"
         )
@@ -116,14 +106,14 @@ async def back(update, context: ContextTypes.DEFAULT_TYPE):
     await query.answer()
 
     keyboard = [
-         [InlineKeyboardButton(" ₹100 GC = ₹1 (One Time Only)", callback_data='trial')],
-        [InlineKeyboardButton(" ₹500 GC = ₹450", callback_data='basic')],
-        [InlineKeyboardButton(" ₹1000 GC = ₹890", callback_data='premium')],
+        [InlineKeyboardButton("₹100 GC = ₹1 (One Time)", callback_data='trial')],
+        [InlineKeyboardButton("₹500 GC = ₹450", callback_data='basic')],
+        [InlineKeyboardButton("₹1000 GC = ₹890", callback_data='premium')],
         [InlineKeyboardButton("₹10000 GC = ₹7999", callback_data='pro')]
     ]
 
     await query.edit_message_text(
-        text="🛡️ *Choose your plan 👇*",
+        text="🎁 *Choose your plan 👇*",
         reply_markup=InlineKeyboardMarkup(keyboard),
         parse_mode="Markdown"
     )

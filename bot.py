@@ -6,10 +6,10 @@ from telegram.ext import ApplicationBuilder, CommandHandler, CallbackQueryHandle
 TOKEN = os.getenv("TOKEN")
 
 PAYMENT_LINKS = {
-    "trial": "https://rzp.io/l/trial",
-    "basic": "https://rzp.io/l/99",
-    "premium": "https://rzp.io/l/199",
-    "pro": "https://rzp.io/l/299"
+    "trial": "https://rzp.io/rzp/vdHkQ4VQ",
+    "basic": "https://rzp.io/rzp/ifpdQvoP",
+    "premium": "https://rzp.io/rzp/QvnOUz1d",
+    "pro": "https://rzp.io/rzp/QvnOUz1d"
 }
 
 pressure_lines = [
@@ -23,9 +23,9 @@ pressure_lines = [
 # ================= START =================
 async def start(update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = [
-        [InlineKeyboardButton("₹100 GC = ₹1 (One Time)", callback_data='trial')],
-        [InlineKeyboardButton("₹500 GC = ₹450", callback_data='basic')],
-        [InlineKeyboardButton("₹1000 GC = ₹890", callback_data='premium')],
+        [InlineKeyboardButton("₹197 GC = ₹1 (One Time)", callback_data='trial')],
+        [InlineKeyboardButton("₹600 GC = ₹500", callback_data='basic')],
+        [InlineKeyboardButton("₹1400 GC = ₹1000", callback_data='premium')],
         [InlineKeyboardButton("₹10000 GC = ₹7999", callback_data='pro')]
     ]
 
@@ -107,8 +107,8 @@ async def back(update, context: ContextTypes.DEFAULT_TYPE):
 
     keyboard = [
         [InlineKeyboardButton("₹100 GC = ₹1 (One Time)", callback_data='trial')],
-        [InlineKeyboardButton("₹500 GC = ₹450", callback_data='basic')],
-        [InlineKeyboardButton("₹1000 GC = ₹890", callback_data='premium')],
+        [InlineKeyboardButton("₹600 GC = ₹500", callback_data='basic')],
+        [InlineKeyboardButton("₹1400 GC = ₹1000", callback_data='premium')],
         [InlineKeyboardButton("₹10000 GC = ₹7999", callback_data='pro')]
     ]
 
